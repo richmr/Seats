@@ -37,21 +37,34 @@ function chipSection( rowID, sectionNum ) {
 	var spotNameStart = "priority-row-"+rowID+"-spot-";
 	var numslots = partyRowData["rows"][rowID]["seats"];
 	var countStart = 1;
-	var htmlstring = "<td>";
+	//var htmlstring = '<td id="row-'+rowID+'-allseating">';
 	for (i = 0; i < numslots; i++) {
 		htmlstring += chipSpot(spotNameStart+(countStart+i));
 	}
-	htmlstring += "</td>";
+	//htmlstring += "</td>";
+	return htmlstring;
+}
+
+function seating(rowID) {
+	var htmlstring = "";
+	var spotNameStart = "priority-row-"+rowID+"-spot-";
+	var numslots = partyRowData["rows"][rowID]["seats"];
+	for (spot = 1; spot <= numslots; spot++) {
+		htmlstring += chipSpot(spotNameStart+spot);
+		// Generate a break every 5 seats		
+		if (!(spot % 5)) {
+			htmlstring += "<br>";
+		}
+	}
 	return htmlstring;
 }
 
 function allChipSections(rowID) {
 	// Generates all the chip sections for a given row
-	var htmlstring = '<div id="row-'+rowID+'-allseating">';
-	for (section = 0; section < partyRowData["categories"].length; section++) {
-		htmlstring += chipSection(rowID, section);	
-	}
-	htmlstring += "</div>";
+	var htmlstring = '<td id="row-'+rowID+'-allseating">';
+	//var htmlstring = "";
+	htmlstring += seating(rowID);	
+	htmlstring += "</td>";
 	return htmlstring;
 }
 
@@ -72,7 +85,7 @@ function newRow() {
 	// Get current row count
 	var thisRow = partyRowData["nextRowID"];
 	var numSeats = parties["defaultSeats"];
-	partyRowData["rows"][thisRow]=JSON.parse('{"name":"Click to Change", "slots":'+numSeats+'}');
+	partyRowData["rows"][thisRow]={"name":"Click to Change", "seats":numSeats};
 	partyRowData["nextRowID"] += 1;
 	return thisRow;
 }
@@ -111,14 +124,14 @@ function changeNumberOfSeats(rowID) {
 	});
 	
 	// Reset the chip data
-	$('div[id^="row-'+rowID+'-allseating"]').html(chipSection(rowID, 1));
+	$('#row-'+rowID+'-allseating').html(seating(rowID));
 	
 	// Now I need to go through the currentSeatedGuests and add their projectIDs to the seating locations
 	// Or is it just to the peopleChips data?  Gah!
+	// I think it is just the peopleChips data
 	$.each(currentSeatedGuests, function(index, value) {
-		
-		$('"#priority-row-'+rowID+'-spot-'+(index+1)'"').		
-		}) 
+		peopleChips['priority-row-'+rowID+'-spot-'+(index+1)] = {"projectID":value, "blank":"stage"};
+	});
 	
 }
 

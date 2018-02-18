@@ -22,6 +22,7 @@ var editNewProject = false;
 
 function initializeEditProject() {
 	// Set up the date picker
+/*	
 	$('.datepicker').pickadate({
 	    selectMonths: true, // Creates a dropdown to control month
 	    selectYears: 5, // Creates a dropdown of 15 years to control year,
@@ -30,7 +31,7 @@ function initializeEditProject() {
 	    close: 'Ok',
 	    closeOnSelect: true // Close upon selecting a date,
   });
-  
+  */
   // Activate buttons:
   $("#addANote").off("click");
 	$("#addANote").click(function(event) {
@@ -47,19 +48,28 @@ function initializeEditProject() {
 		clickcancelProjectData();		
 	});
 	
+	/*
 	$("#cancelProjectNotes").off("click");
 	$("#cancelProjectNotes").click(function(event) {
 		clickcancelProjectNotes();		
 	});
-	
+	*/
+	/*
 	$("#saveProjectNotes").off("click");
 	$("#saveProjectNotes").click(function(event) {
 		clicksaveProjectNotes();		
 	});
-	
+	*/
 	// Enable "Enter" detection on the project name field (same as "Save")
 	$("#editProject-Title").off("keypress");
 	$("#editProject-Title").keypress(function(e) {
+	    var keycode = (e.keyCode ? e.keyCode : e.which);
+	    if (keycode == '13') {
+	        $("#editProject-Title-lastName").focus();
+	    }
+	});
+	$("#editProject-Title-lastName").off("keypress");
+	$("#editProject-Title-lastName").keypress(function(e) {
 	    var keycode = (e.keyCode ? e.keyCode : e.which);
 	    if (keycode == '13') {
 	        clicksaveProjectData();
@@ -93,6 +103,7 @@ function clicksaveProjectData() {
 	
   // Save basic data
   	tables[editProjectID]["title"] = $("#editProject-Title").val();
+  	tables[editProjectID]["lastName"] = $("#editProject-Title-lastName").val();
 	tables[editProjectID]["goal"] = $("#editProject-goal").val();
 	
 	if ($("#status-green").prop("checked")) {
@@ -102,7 +113,7 @@ function clicksaveProjectData() {
 	} else if ($("#status-red").prop("checked")) {
 		tables[editProjectID]["status"]="chip-status-red";	
 	}
-	
+	/*
 	// Iterate over tasks, we can use the nextTaskID stored in editProject-TaskList to make this easier
 	var numtasks = $("#editProject-TaskList").data("nextTaskID");
 	
@@ -119,7 +130,7 @@ function clicksaveProjectData() {
 			tables[editProjectID]["tasks"].push(taskobj);
 		}			
 	}
-	
+	*/
 	// Save the notes
 	tables[editProjectID]["note"] = $("#projectNoteField").val();
 	
@@ -175,7 +186,7 @@ function editProject(projID, newProject=false) {
 	
 	// Set basic data
 	$("#editProject-Title").val(title);
-	$("#editProject-goal").val(goal);
+	//$("#editProject-goal").val(goal);
 	
 	if (status=="chip-status-green") {
 		$("#status-green").prop("checked", true);	
@@ -187,23 +198,23 @@ function editProject(projID, newProject=false) {
 	
 	// iterate over tasks
 	// First set task list to empty list
-	$("#editProject-TaskList").html(addTaskButtonHTML());
+	//$("#editProject-TaskList").html(addTaskButtonHTML());
 	
 	// Activate the button
-	$("#editProject-addTaskButton").off("click");
-	$("#editProject-addTaskButton").click(function(event) {
-		clickaddTaskButton();		
-	});
+	//$("#editProject-addTaskButton").off("click");
+	//$("#editProject-addTaskButton").click(function(event) {
+	//	clickaddTaskButton();		
+	//});
 	
 	// Set the "next task ID" data
-	$("#editProject-TaskList").data("nextTaskID", 1);
+	//$("#editProject-TaskList").data("nextTaskID", 1);
 	
 	// Iterate
-	$.each(tasks, function( index, value ) {
+	//$.each(tasks, function( index, value ) {
 		  //console.log("Adding task: :" + value);
-		  addTaskRow(value);
+	//	  addTaskRow(value);
 		  
-	});
+//	});
 	 
 	 // Set the note data
 	 $("#projectNoteField").val(note);

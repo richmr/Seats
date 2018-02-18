@@ -18,14 +18,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // Global variable declarations
 
-var portfolios = {"name":"Click to Change"};
-var priorityRowData = { "categories":["Extreme", "High", "Med", "Low"],
+var parties = {"name":"Click to name your party", "defaultSeats":10};
+var partyRowData = { "categories":["Guests"],
 								"nextRowID":2,
-								"rows":{"1":{"name":"Click to Change", "slots":2}}
+								"rows":{"1":{"name":"Click to Change", "seats":10}}
 							};
 var people = {};
 
-var priorityChips = { "priority-row-1-spot-1": { "projectID":"stage", "blank":"stage"},
+var peopleChips = { "priority-row-1-spot-1": { "projectID":"stage", "blank":"stage"},
 							"priority-row-1-spot-2": { "projectID":"stage", "blank":"stage"},
 							"priority-row-1-spot-3": { "projectID":"stage", "blank":"stage"},
 							"priority-row-1-spot-4": { "projectID":"stage", "blank":"stage"},
@@ -35,17 +35,15 @@ var priorityChips = { "priority-row-1-spot-1": { "projectID":"stage", "blank":"s
 							"priority-row-1-spot-8": { "projectID":"stage", "blank":"stage"},
 							"priority-chipStage" : {"projectID":"stage", "blank":"stage"}
 						};
-var archivedProjects = [];
-var doneProjects = [];
-var graveyardProjects = [];
+var archivedPeople = [];
+var donePeople = [];
+var graveyardPeople = [];
 								
-var projects = { "0": {"title":" ", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"none"},
-						"stage": {"title":"New Project", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"add"},
-						"nextProjID":"1"
+var tables = { "nextProjID":"1"
 					};
-var prioritiesDataSaved = true;
-var permanentProjects = {"0": {"title":"New Project", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"add"},
-									"stage": {"title":"New Project", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"add"},
+var seatsDataSaved = true;
+var permanentPeople = {"0": {"title":"New Guest", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"add"},
+									"stage": {"title":"New Guest", "status":"chip-placeholder", "draggable":false, "droppable":true, "click":"add"},
 								};
 
 function consolidateData() {

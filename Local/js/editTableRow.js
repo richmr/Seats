@@ -52,7 +52,8 @@ function clicksaveTableRow() {
 			// Update value
 			partyRowData["rows"][editRowID]["seats"] = numSeats;
 			// And then do something with this..  Table gen
-			
+			changeNumberOfSeats(editRowID);
+			initializeTableRow(editRowID);
 		}
 	} else {
 		// Just set it back to what it was
@@ -79,6 +80,8 @@ function clickcancelTableRow() {
 function editTableRow(rowID) {
 	editRowID = rowID;
 	$("#editTableRow-Title").val(partyRowData["rows"][rowID]["name"]);
+	$("#editTableRow-numSeats").val(partyRowData["rows"][rowID]["seats"]);
+	
 	$("#editTableRowModal").modal("open");
 	$("#editTableRow-Title").focus();
 }

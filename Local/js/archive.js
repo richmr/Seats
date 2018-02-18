@@ -67,6 +67,10 @@ function addChipToArchive( projectID ) {
 	
 	// Prepend html to archivePool
 	var title = tables[projectID].title;
+	var lastName;
+	if (lastName = tables[projectID]["lastName"]) {
+		title += " " + lastName[0] + ".";
+	}	
 	var newCount = ($('div[id^="archivePool-"]').length + 1);
 	var newID = "archivePool-" + newCount;
 	

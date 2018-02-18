@@ -37,20 +37,34 @@ function chipSection( rowID, sectionNum ) {
 	var spotNameStart = "priority-row-"+rowID+"-spot-";
 	var numslots = partyRowData["rows"][rowID]["seats"];
 	var countStart = 1;
-	var htmlstring = "<td>";
+	//var htmlstring = '<td id="row-'+rowID+'-allseating">';
 	for (i = 0; i < numslots; i++) {
 		htmlstring += chipSpot(spotNameStart+(countStart+i));
 	}
-	htmlstring += "</td>";
+	//htmlstring += "</td>";
+	return htmlstring;
+}
+
+function seating(rowID) {
+	var htmlstring = "";
+	var spotNameStart = "priority-row-"+rowID+"-spot-";
+	var numslots = partyRowData["rows"][rowID]["seats"];
+	for (spot = 1; spot <= numslots; spot++) {
+		htmlstring += chipSpot(spotNameStart+spot);
+		// Generate a break every 5 seats		
+		if (!(spot % 5)) {
+			htmlstring += "<br>";
+		}
+	}
 	return htmlstring;
 }
 
 function allChipSections(rowID) {
 	// Generates all the chip sections for a given row
-	var htmlstring = "";
-	for (section = 0; section < partyRowData["categories"].length; section++) {
-		htmlstring += chipSection(rowID, section);	
-	}
+	var htmlstring = '<td id="row-'+rowID+'-allseating">';
+	//var htmlstring = "";
+	htmlstring += seating(rowID);	
+	htmlstring += "</td>";
 	return htmlstring;
 }
 
@@ -71,7 +85,7 @@ function newRow() {
 	// Get current row count
 	var thisRow = partyRowData["nextRowID"];
 	var numSeats = parties["defaultSeats"];
-	partyRowData["rows"][thisRow]=JSON.parse('{"name":"Click to Change", "slots":'+numSeats+'}');
+	partyRowData["rows"][thisRow]={"name":"Click to Change", "slots":numSeats};
 	partyRowData["nextRowID"] += 1;
 	return thisRow;
 }
@@ -86,6 +100,39 @@ function addRowToTable(rowID=false) {
 	
 	initializeTableRow(rowID);
 	////dataChanged();
+}
+
+function changeNumberOfSeats(rowID) {
+	// Generate an array of all current seated guests
+	var currentSeatedGuests = [];
+	$('div[id^="priority-row-'+rowID+'"]' ).each(function( index, value ) {
+			// Test what the projectID for this DOM element is
+			if ((peopleChips[value.id]["projectID"] != 0) && (peopleChips[value.id]["projectID"] != "stage")) {
+				// To handle a reduction in seats at a table, I have to check to see if
+				// I've already pushed a full table on to my guest stack
+				if (currentSeatedGuests.length < partyRowData["rows"][rowID]["seats"]) {
+					// push this projectID on to my seated guests Stack;
+					currentSeatedGuests.push(peopleChips[value.id]["projectID"]);
+				} else {
+					// I need to push this into the unseated guests archive
+					addChipToArchive(peopleChips[value.id]["projectID"] );
+				}
+				
+				// Delete the existing seating location data
+				delete peopleChips[this.id];
+			}
+	});
+	
+	// Reset the chip data
+	$('#row-'+rowID+'-allseating').html(seating(rowID));
+	
+	// Now I need to go through the currentSeatedGuests and add their projectIDs to the seating locations
+	// Or is it just to the peopleChips data?  Gah!
+	// I think it is just the peopleChips data
+	$.each(currentSeatedGuests, function(index, value) {
+		peopleChips['priority-row-'+rowID+'-spot-'+(index+1)] = {"projectID":value, "blank":"stage"};
+	});
+	
 }
 
 function deleteRowFromTable(rowID, protecttables = true) {

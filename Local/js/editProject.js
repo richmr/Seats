@@ -65,6 +65,13 @@ function initializeEditProject() {
 	$("#editProject-Title").keypress(function(e) {
 	    var keycode = (e.keyCode ? e.keyCode : e.which);
 	    if (keycode == '13') {
+	        $("#editProject-Title-lastName").focus();
+	    }
+	});
+	$("#editProject-Title-lastName").off("keypress");
+	$("#editProject-Title-lastName").keypress(function(e) {
+	    var keycode = (e.keyCode ? e.keyCode : e.which);
+	    if (keycode == '13') {
 	        clicksaveProjectData();
 	    }
 	});	
@@ -96,6 +103,7 @@ function clicksaveProjectData() {
 	
   // Save basic data
   	tables[editProjectID]["title"] = $("#editProject-Title").val();
+  	tables[editProjectID]["lastName"] = $("#editProject-Title-lastName").val();
 	tables[editProjectID]["goal"] = $("#editProject-goal").val();
 	
 	if ($("#status-green").prop("checked")) {
@@ -163,6 +171,7 @@ function editProject(projID, newProject=false) {
 	var status = "chip-status-green";
 	var tasks = [];
 	var note="";
+	var lastName = "";
 	// Is this a new project?  Set text accordingly
 	if (newProject) {
 		$("#newOrEditProject").text("New");
@@ -174,10 +183,12 @@ function editProject(projID, newProject=false) {
 		goal = proj["goal"];
 		tasks = proj["tasks"];
 		note = proj["note"];
+		lastName = proj["lastName"];
 	}
 	
 	// Set basic data
 	$("#editProject-Title").val(title);
+	$("#editProject-Title-lastName").val(lastName);
 	//$("#editProject-goal").val(goal);
 	
 	if (status=="chip-status-green") {

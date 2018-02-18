@@ -34,7 +34,7 @@ function updatePriorityChip( chip ) {
 	
 	// Check to see if the project exists
 	var thisProj;
-	if (!(thisProj = permanenttables[projID])) {
+	if (!(thisProj = permanentPeople[projID])) {
 		if (!(thisProj = tables[projID])) {
 			//console.log("Project ID "+projID+" was not found, replaced with empty slot");
 			peopleChips[chip.id].projectID = "stage";
@@ -49,7 +49,12 @@ function updatePriorityChip( chip ) {
 	$(chip).addClass(thisProj.status);
 	
 	// Set the title
-	$(chip).text(thisProj.title);
+	var displayText = thisProj.title;
+	var lastName;
+	if (lastName = thisProj["lastName"]) {
+		displayText += lastName[0] + ".";
+	}
+	$(chip).text(displayText);
 	
 	// Set attributes
 	if (thisProj.draggable) {
@@ -102,6 +107,7 @@ function clickOnRowName(chip) {
 
 function initializeTableRow(rowID) {
 	// Initialize the ability to click the name and set a data field on the name
+	$("#row-"+rowID+"-name").off("click");
 	$("#row-"+rowID+"-name").click(function(event) {
 			editTableRow(rowID);		
 		}).data("rowID", rowID);
