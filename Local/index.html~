@@ -79,7 +79,7 @@
 					<div id="priority-chipStage" class="chip"></div>
 				<br><br>
 				<a class="waves-effect" href="#!">
-					<i id="archive" class="small material-icons action-icons" style="font-size: 3rem; color: black;">sentiment_very_satisfied</i>
+					<i id="archive" class="small material-icons action-icons" style="font-size: 3rem; color: black;">sentiment_satisfied</i>
 				</a>
 				<span id="archive-count">0</span> unseated guests
 				<br><br>
@@ -108,7 +108,7 @@
 			<div id="guestListModal" class="modal">
 				<div id="guestListModal-content" class="modal-content">
 			      <span id="guestListModal-header"><h5>Guest Lists</h5></span>
-			      <p>For best results, cut and paste this information somewhere to make it pretty.</p>
+			      
 			      <div id="guestList-content">
 			      <!-- Guest data here  -->
 			      </div>     
@@ -279,6 +279,9 @@
 		    <div id="MVPAboutModal" class="modal">
 				<div id="MVPAboutModal-content" class="modal-content">
 			      <span id="MVPAboutModal-header"><h5>About Seats Local</h5></span>
+			      <p>The purpose of Seats is to allow you to plan the seating for a party you are hosting.  Each row represents a table, and you can drag and drop guests to the table you want.
+			      You can also just keep them stored in the "Unseated Guests" pool for now.  Use the color settings when you define your guests to help keep track of odd seating issues (like adults on the wrong table).</p>  
+			      <p>Click on the <i class="tiny material-icons action-icons">list</i> to get a nice seating list for your party</p>
 			      <p>This version of Seats is fully functional but only stores your party data on your local machine.</p>
 			      <p><h5 class="red-text">Please click the <i class="small material-icons action-icons">save</i>!</h5></p>
 			      <!-- <a href="https://goo.gl/4k5A9j" target="_blank">The Priorities manual can be found here</a></p> -->
