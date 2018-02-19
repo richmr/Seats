@@ -127,8 +127,8 @@ function initializeTableChip(chip) {
       revert: "invalid",
       start: function( event, ui ) {
       	// Store original project number in two places
-      	$(this).data("originalProjNum", peopleChips[$(this).attr("id")].projectID);
-      	$(ui.helper).data("originalProjNum", peopleChips[$(this).attr("id")].projectID);
+      	$(this).data("originalProjNum", Number(peopleChips[$(this).attr("id")].projectID));
+      	$(ui.helper).data("originalProjNum", Number(peopleChips[$(this).attr("id")].projectID));
       	// Set projectID = 0
       	peopleChips[$(this).attr("id")].projectID = peopleChips[$(this).attr("id")].blank;
       	// Reset format
