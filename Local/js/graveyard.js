@@ -74,7 +74,7 @@ function addChipTograveyard( projectID ) {
 	var newID = "graveyardPool-" + newCount;
 	
 	// Reset the chip status to green.  If you put a project in idle, then no fault for not working on it
-	tables[projectID].status = "chip-status-green"
+	//tables[projectID].status = "chip-status-green"
 	
 	var htmlSnippet = `<div id="${newID}" class="chip">${title}</div>`;
 	$("#graveyardPool").prepend(htmlSnippet);

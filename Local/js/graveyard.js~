@@ -66,6 +66,10 @@ function addChipTograveyard( projectID ) {
 	
 	// Prepend html to graveyardPool
 	var title = tables[projectID].title;
+	var lastName;
+	if (lastName = tables[projectID]["lastName"]) {
+		title += " " + lastName[0] + ".";
+	}	
 	var newCount = ($('div[id^="graveyardPool-"]').length + 1);
 	var newID = "graveyardPool-" + newCount;
 	
